@@ -12,28 +12,28 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.luciene.projetoteste.ordemservico.entities.PessoaEntity;
-import com.luciene.projetoteste.ordemservico.services.PessoaService;
+import com.luciene.projetoteste.ordemservico.entities.StatusEntity;
+import com.luciene.projetoteste.ordemservico.services.StatusService;
 
 import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor //colocando isso não precisa colocar @Autowired no atributo
-@RequestMapping(value = "/pessoa")
-public class PessoaController {
- private final PessoaService PessoaService;
+@RequestMapping(value = "/status")
+public class StatusController {
+ private final StatusService StatusService;
     @GetMapping
-    public ResponseEntity<List<PessoaEntity>> 
+    public ResponseEntity<List<StatusEntity>> 
     listarTodos() {
-        List<PessoaEntity> lista = 
-        PessoaService.listarTodos();
+        List<StatusEntity> lista = 
+        StatusService.listarTodos();
         return ResponseEntity.ok().body(lista);
     }
 
     @PostMapping
-    public ResponseEntity<PessoaEntity> 
-    incluir(@RequestBody PessoaEntity Pessoa) {
-        PessoaEntity novo = PessoaService.
-        incluir(Pessoa);
+    public ResponseEntity<StatusEntity> 
+    incluir(@RequestBody StatusEntity Status) {
+        StatusEntity novo = StatusService.
+        incluir(Status);
         if (novo != null) {
             return new ResponseEntity<>(novo, HttpStatus.CREATED);
         } else {
@@ -42,11 +42,11 @@ public class PessoaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PessoaEntity> 
+    public ResponseEntity<StatusEntity> 
     editar(@PathVariable int id, 
-    @RequestBody PessoaEntity Pessoa) {
-        PessoaEntity atualizado = PessoaService.
-        editar(id,Pessoa);
+    @RequestBody StatusEntity Status) {
+        StatusEntity atualizado = StatusService.
+        editar(id,Status);
         if (atualizado != null) {
             return new ResponseEntity<>(atualizado, HttpStatus.OK);
         } else {
@@ -57,7 +57,7 @@ public class PessoaController {
     
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable int id) {
-        PessoaService.excluir(id);
+        StatusService.excluir(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

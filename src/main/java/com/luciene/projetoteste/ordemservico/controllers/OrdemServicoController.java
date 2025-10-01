@@ -12,28 +12,29 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.luciene.projetoteste.ordemservico.entities.PessoaEntity;
-import com.luciene.projetoteste.ordemservico.services.PessoaService;
+import com.luciene.projetoteste.ordemservico.entities.OrdemServicoEntity;
+import com.luciene.projetoteste.ordemservico.repositories.OrdemServicoRepository;
+import com.luciene.projetoteste.ordemservico.services.OrdemServicoService;
 
 import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor //colocando isso não precisa colocar @Autowired no atributo
-@RequestMapping(value = "/pessoa")
-public class PessoaController {
- private final PessoaService PessoaService;
+@RequestMapping(value = "/ordemservico")
+public class OrdemServicoController {
+ private final OrdemServicoService OrdemServicoService;
     @GetMapping
-    public ResponseEntity<List<PessoaEntity>> 
+    public ResponseEntity<List<OrdemServicoEntity>> 
     listarTodos() {
-        List<PessoaEntity> lista = 
-        PessoaService.listarTodos();
+        List<OrdemServicoEntity> lista = 
+        OrdemServicoService.listarTodos();
         return ResponseEntity.ok().body(lista);
     }
 
     @PostMapping
-    public ResponseEntity<PessoaEntity> 
-    incluir(@RequestBody PessoaEntity Pessoa) {
-        PessoaEntity novo = PessoaService.
-        incluir(Pessoa);
+    public ResponseEntity<OrdemServicoEntity> 
+    incluir(@RequestBody OrdemServicoEntity OrdemServico) {
+        OrdemServicoEntity novo = OrdemServicoService.
+        incluir(OrdemServico);
         if (novo != null) {
             return new ResponseEntity<>(novo, HttpStatus.CREATED);
         } else {
@@ -42,11 +43,11 @@ public class PessoaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PessoaEntity> 
+    public ResponseEntity<OrdemServicoEntity> 
     editar(@PathVariable int id, 
-    @RequestBody PessoaEntity Pessoa) {
-        PessoaEntity atualizado = PessoaService.
-        editar(id,Pessoa);
+    @RequestBody OrdemServicoEntity OrdemServico) {
+        OrdemServicoEntity atualizado = OrdemServicoService.
+        editar(id,OrdemServico);
         if (atualizado != null) {
             return new ResponseEntity<>(atualizado, HttpStatus.OK);
         } else {
@@ -57,7 +58,7 @@ public class PessoaController {
     
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable int id) {
-        PessoaService.excluir(id);
+        OrdemServicoService.excluir(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
